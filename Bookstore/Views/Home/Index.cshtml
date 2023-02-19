@@ -1,31 +1,160 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<Bookstore.Models.Book>
+
+<h1>Bookstore</h1>
+
+@using (Html.BeginForm("Search", "Bookstore", FormMethod.Post))
+{
+    <div class="search">
+        @Html.TextBox("searchTerm", null, new { placeholder = "Search books..." })
+        <button type="submit">Search</button>
+    </div>
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@if (!Model.Any())
+{
+    <p>No matching books were found.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Name</th>
+                <th>Reserved</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Name</td>
+                    <td>@(book.IsReserved ? "Yes" : "No")</td>
+                    <td>
+                        @if (!book.IsReserved)
+                        {
+                            using (Html.BeginForm("Reserve", "Bookstore", new { bookId = book.Id }, FormMethod.Post))
+                            {
+                                <button type="submit">Reserve</button>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+@*@model IEnumerable<Bookstore.Models.Book>
+
+    <h1>Bookstore</h1>
+
+    @using (Html.BeginForm("Search", "Bookstore", FormMethod.Post))
+    {
+        <div class="search">
+            @Html.TextBox("searchTerm", null, new { placeholder = "Search books..." })
+            <button type="submit">Search</button>
+        </div>
+    }
+
+    <table>
+        <thead>
+            <tr>
+                <th>Book ID</th>
+                <th>Name</th>
+                <th>Reserved</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Name</td>
+                    <td>@(book.IsReserved ? "Yes" : "No")</td>
+                    <td>
+                        @if (!book.IsReserved)
+                        {
+                            using (Html.BeginForm("Reserve", "Bookstore", new { bookId = book.Id }, FormMethod.Post))
+                            {
+                                <button type="submit">Reserve</button>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+<style>
+    h1 {
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 0.5em;
+        border: 1px solid #ccc;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .search {
+        display: flex;
+        margin-bottom: 1em;
+    }
+
+        .search input[type="text"] {
+            flex: 1;
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-right: none;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .search button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+            padding: 0.5em;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            cursor: pointer;
+        }
+
+            .search button[type="submit"]:hover {
+                background-color: #3e8e41;
+                border-color: #3e8e41;
+            }
+
+    button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+        padding: 0.5em;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        button[type="submit"]:hover {
+            background-color: #3e8e41;
+            border-color: #3e8e41;
+        }
+</style>
