@@ -1,22 +1,20 @@
-﻿using Bookstore.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Bookstore.Controllers
 {
-    public class HomeController : Controller
+    public class BookstoreController : Controller
     {
-        //List books
-        private static List<Models.Book> _books = new List<Book>
+        // GET: Bookstore
+        private static List<Models.Book> _books = new List<Models.Book>
         {
             // Define a list of books in the bookstore
-            new Book { Id = "9b0896fa-3880-4c2e-bfd6-925c87f22878", Name = "CQRS for Dummies", IsReserved = false },
-            new Book { Id = "0550818d-36ad-4a8d-9c3a-a715bf15de76", Name = "Visual Studio Tips", IsReserved = false },
-            new Book { Id = "8e0f11f1-be5c-4dbc-8012-c19ce8cbe8e1", Name = "NHibernate Cookbook", IsReserved = false }
+            new Models.Book { Id = "9b0896fa-3880-4c2e-bfd6-925c87f22878", Name = "CQRS for Dummies", IsReserved = false },
+            new Models.Book { Id = "0550818d-36ad-4a8d-9c3a-a715bf15de76", Name = "Visual Studio Tips", IsReserved = false },
+            new Models.Book { Id = "8e0f11f1-be5c-4dbc-8012-c19ce8cbe8e1", Name = "NHibernate Cookbook", IsReserved = false }
         };
 
         //Get: book store
@@ -25,6 +23,7 @@ namespace Bookstore.Controllers
             //Pass the list of books to the view
             return View(_books);
         }
+
 
         // Search books 
         [HttpPost]
@@ -58,7 +57,7 @@ namespace Bookstore.Controllers
                 ViewBag.ErrorMessage = "Sorry, the book is not found.";
             }
 
-            
+
             if (book.IsReserved)
             {
                 return RedirectToAction("Index", new { errorMessage = "This book has already been reserved by another customer." });
@@ -70,49 +69,5 @@ namespace Bookstore.Controllers
 
             return RedirectToAction("Index");
         }
-
-        // Return a book
-        [HttpPost]
-        public ActionResult Return(string bookId)
-        {
-            // Find the book with the specific ID
-            var book = _books.FirstOrDefault(b => b.Id == bookId);
-            if (book == null)
-            {
-                // If the book is not found, return an error view
-                ViewBag.ErrorMessage = "Sorry, the book is not found.";
-                return View("Error");
-            }
-
-            if (!book.IsReserved)
-            {
-                // If the book is not reserved, return an error view
-                ViewBag.ErrorMessage = "This book has not been reserved.";
-                return View("Error");
-            }
-
-            book.IsReserved = false;
-
-            return RedirectToAction("Index");
-        }
-
-        //    public ActionResult Index()
-        //    {
-        //        return View();
-        //    }
-
-        //    public ActionResult About()
-        //    {
-        //        ViewBag.Message = "Your application description page.";
-
-        //        return View();
-        //    }
-
-        //    public ActionResult Contact()
-        //    {
-        //        ViewBag.Message = "Your contact page.";
-
-        //        return View();
-        //    }
     }
 }

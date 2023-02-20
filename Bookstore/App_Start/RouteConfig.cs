@@ -18,6 +18,14 @@ namespace Bookstore
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            // add route to search page
+            routes.MapRoute(
+                name: "Search",
+                url: "Bookstore/Search/{query}",
+                defaults: new { controller = "Home", action = "Search", query = UrlParameter.Optional }
+            );
+
         }
     }
 }
