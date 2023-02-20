@@ -1,4 +1,5 @@
 ﻿using Bookstore.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace Bookstore.Controllers
 
         // Search books 
         [HttpPost]
+       
         public ActionResult Search(string searchTerm)
         {
             // Find all books that contain the search term in the name
@@ -49,6 +51,7 @@ namespace Bookstore.Controllers
         // Reserve books
         // Reserve books
         [HttpPost]
+        [Authorize]
         public ActionResult Reserve(string bookId)
         {
             // Find the book with the specific ID
@@ -66,18 +69,28 @@ namespace Bookstore.Controllers
             }
 
             book.IsReserved = true;
-            var bookingNumber = Guid.NewGuid().ToString();
+            // get user ID and match user's reservced book
+            var userId = User.Identity.GetUserId();
+
+            if (book.AspNetUserId != User.Identity.GetUserId())
+            {
+                // If the book has been reserved by another user, return an error view
+                ViewBag.ErrorMessage = "This book has been reserved by another user.";
+                return View("Error");
+            }
+            //assign current user id to book
+            book.AspNetUserId = User.Identity.GetUserId();
+            string bookingNumber = Guid.NewGuid().ToString();
             TempData["BookingNumber"] = bookingNumber;
 
-            // Display a confirmation popup with the booking number
-            var confirmScript = $"alert('Your booking number is {bookingNumber}');";
-            TempData["ConfirmScript"] = confirmScript;
-
-            return RedirectToAction("Index");
+            ViewBag.BookingNumber = TempData["BookingNumber"];
+            return View("BookingNumber");
+            
         }
 
         // Return a book
         [HttpPost]
+        [Authorize]
         public ActionResult Return(string bookId)
         {
             // Find the book with the specific ID
@@ -95,29 +108,22 @@ namespace Bookstore.Controllers
                 ViewBag.ErrorMessage = "This book has not been reserved.";
                 return View("Error");
             }
+            if (book.AspNetUserId != User.Identity.GetUserId())
+            {
+                // If the book has been reserved by another user, return an error view
+                ViewBag.ErrorMessage = "This book has been reserved by another user.";
+                return View("Error");
+            }
+
+            
 
             book.IsReserved = false;
+            book.AspNetUserId = "1";
 
-            return RedirectToAction("Index");
+
+            return View("Return");
         }
 
-        //    public ActionResult Index()
-        //    {
-        //        return View();
-        //    }
-
-        //    public ActionResult About()
-        //    {
-        //        ViewBag.Message = "Your application description page.";
-
-        //        return View();
-        //    }
-
-        //    public ActionResult Contact()
-        //    {
-        //        ViewBag.Message = "Your contact page.";
-
-        //        return View();
-        //    }
+       
     }
 }

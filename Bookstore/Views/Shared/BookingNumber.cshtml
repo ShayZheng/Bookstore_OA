@@ -1,0 +1,15 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "BookingNumber";
+}
+
+<h1 class="text-danger">Thank you for you booking.</h1>
+@if (ViewBag.BookingNumber != null)
+{
+    <div class="alert alert-success">
+        Your booking number is @ViewBag.BookingNumber
+    </div>
+    @Html.ActionLink("Home", "Index")
+}
+
