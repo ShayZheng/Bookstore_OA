@@ -29,7 +29,7 @@ namespace Bookstore.Controllers
 
         // Search books 
         [HttpPost]
-       
+
         public ActionResult Search(string searchTerm)
         {
             // Find all books that contain the search term in the name
@@ -69,23 +69,12 @@ namespace Bookstore.Controllers
             }
 
             book.IsReserved = true;
-            // get user ID and match user's reservced book
-            var userId = User.Identity.GetUserId();
-
-            if (book.AspNetUserId != User.Identity.GetUserId())
-            {
-                // If the book has been reserved by another user, return an error view
-                ViewBag.ErrorMessage = "This book has been reserved by another user.";
-                return View("Error");
-            }
-            //assign current user id to book
-            book.AspNetUserId = User.Identity.GetUserId();
-            string bookingNumber = Guid.NewGuid().ToString();
+            var bookingNumber = Guid.NewGuid().ToString();
             TempData["BookingNumber"] = bookingNumber;
 
             ViewBag.BookingNumber = TempData["BookingNumber"];
+
             return View("BookingNumber");
-            
         }
 
         // Return a book
@@ -108,22 +97,11 @@ namespace Bookstore.Controllers
                 ViewBag.ErrorMessage = "This book has not been reserved.";
                 return View("Error");
             }
-            if (book.AspNetUserId != User.Identity.GetUserId())
-            {
-                // If the book has been reserved by another user, return an error view
-                ViewBag.ErrorMessage = "This book has been reserved by another user.";
-                return View("Error");
-            }
-
-            
 
             book.IsReserved = false;
-            book.AspNetUserId = "1";
 
 
             return View("Return");
         }
-
-       
     }
 }
