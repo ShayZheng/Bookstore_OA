@@ -1,8 +1,8 @@
-
+﻿
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/20/2023 17:55:41
+-- Date Created: 02/20/2023 16:16:31
 -- Generated from EDMX file: C:\Users\yingzheng\source\repos\Bookstore\Bookstore\Models\Bookstore.edmx
 -- --------------------------------------------------
 
@@ -101,7 +101,6 @@ CREATE TABLE [dbo].[Books] (
     [Name] nvarchar(max)  NOT NULL,
     [IsReserved] bit  NOT NULL,
     [AspNetUserId] nvarchar(128)  NOT NULL,
-    [ImageUrl] nvarchar(max)  NOT NULL,
     [Booking_Id] int  NOT NULL
 );
 GO
@@ -109,6 +108,7 @@ GO
 -- Creating table 'Bookings'
 CREATE TABLE [dbo].[Bookings] (
     [Id] int IDENTITY(1,1) NOT NULL,
+    [Num] nvarchar(max)  NOT NULL,
     [AspNetUserId] nvarchar(128)  NOT NULL
 );
 GO

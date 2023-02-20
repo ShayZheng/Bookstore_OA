@@ -14,9 +14,9 @@ namespace Bookstore.Controllers
         private static List<Models.Book> _books = new List<Book>
         {
             // Define a list of books in the bookstore
-            new Book { Id = "9b0896fa-3880-4c2e-bfd6-925c87f22878", Name = "CQRS for Dummies", IsReserved = false },
-            new Book { Id = "0550818d-36ad-4a8d-9c3a-a715bf15de76", Name = "Visual Studio Tips", IsReserved = false },
-            new Book { Id = "8e0f11f1-be5c-4dbc-8012-c19ce8cbe8e1", Name = "NHibernate Cookbook", IsReserved = false }
+            new Book { Id = "9b0896fa-3880-4c2e-bfd6-925c87f22878", Name = "CQRS for Dummies", IsReserved = false, ImageUrl = "images/pexels-ata-ebem-10863290.jpg" },
+            new Book { Id = "0550818d-36ad-4a8d-9c3a-a715bf15de76", Name = "Visual Studio Tips", IsReserved = false, ImageUrl = "images/pexels-ekrulila-2128249.jpg" },
+            new Book { Id = "8e0f11f1-be5c-4dbc-8012-c19ce8cbe8e1", Name = "NHibernate Cookbook", IsReserved = false, ImageUrl = "images/pexels-martin-de-arriba-7171398.jpg" }
         };
 
         //Get: book store
@@ -47,18 +47,19 @@ namespace Bookstore.Controllers
         }
 
         // Reserve books
+        // Reserve books
         [HttpPost]
         public ActionResult Reserve(string bookId)
         {
-            //Find the book with the specific ID
+            // Find the book with the specific ID
             var book = _books.FirstOrDefault(b => b.Id == bookId);
             if (book == null)
             {
-                //If the book is not found, return 
+                // If the book is not found, return an error view
                 ViewBag.ErrorMessage = "Sorry, the book is not found.";
+                return View("Error");
             }
 
-            
             if (book.IsReserved)
             {
                 return RedirectToAction("Index", new { errorMessage = "This book has already been reserved by another customer." });
@@ -67,6 +68,10 @@ namespace Bookstore.Controllers
             book.IsReserved = true;
             var bookingNumber = Guid.NewGuid().ToString();
             TempData["BookingNumber"] = bookingNumber;
+
+            // Display a confirmation popup with the booking number
+            var confirmScript = $"alert('Your booking number is {bookingNumber}');";
+            TempData["ConfirmScript"] = confirmScript;
 
             return RedirectToAction("Index");
         }

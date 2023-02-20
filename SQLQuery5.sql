@@ -1,8 +1,8 @@
-
+﻿
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/20/2023 17:55:41
+-- Date Created: 02/20/2023 17:51:08
 -- Generated from EDMX file: C:\Users\yingzheng\source\repos\Bookstore\Bookstore\Models\Bookstore.edmx
 -- --------------------------------------------------
 

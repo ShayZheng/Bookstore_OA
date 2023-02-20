@@ -13,6 +13,13 @@
     </div>
 }
 
+@if (TempData["ConfirmScript"] != null)
+{
+    <script>
+        @(TempData["ConfirmScript"])
+    </script>
+}
+
 @if (!Model.Any())
 {
     <p>No matching books were found.</p>
@@ -22,9 +29,8 @@ else
     <table>
         <thead>
             <tr>
-                
                 <th>Book</th>
-                <th>Status</th>
+                <th>Available Status</th>
                 <th></th>
             </tr>
         </thead>
@@ -32,9 +38,13 @@ else
             @foreach (var book in Model)
             {
                 <tr>
-                    
-                    <td>@book.Name</td>
-                    <td>@(book.IsReserved ? "Yes" : "No")</td>
+                    <td>
+                        <img src="@book.ImageUrl" style="width:200px;height:300px;margin-top:30px;"/>
+                        
+                        <br />
+                        @book.Name
+                    </td>
+                    <td>@(book.IsReserved ? "Reserved" : "Available")</td>
                     <td>
                         @if (!book.IsReserved)
                         {
@@ -50,7 +60,6 @@ else
                                 <button type="submit">Return</button>
                             }
                         }
-
                     </td>
                 </tr>
             }

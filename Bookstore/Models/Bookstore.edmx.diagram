@@ -12,6 +12,9 @@
         <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Model.Book" Width="1.5" PointX="7.25" PointY="0.5" />
         <AssociationConnector Association="Model.AspNetUserBook" />
+        <EntityTypeShape EntityType="Model.Booking" Width="1.5" PointX="5.5" PointY="5.125" />
+        <AssociationConnector Association="Model.AspNetUserBooking" />
+        <AssociationConnector Association="Model.BookBooking" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

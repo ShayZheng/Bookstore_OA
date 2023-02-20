@@ -171,6 +171,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookingsController.cs" />
+    <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\BookstoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -188,6 +190,9 @@
       <DependentUpon>Bookstore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Book.cs">
+      <DependentUpon>Bookstore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Booking.cs">
       <DependentUpon>Bookstore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BooksController.cs" />
@@ -225,6 +230,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\pexels-ata-ebem-10863290.jpg" />
+    <Content Include="images\pexels-ekrulila-2128249.jpg" />
+    <Content Include="images\pexels-martin-de-arriba-7171398.jpg" />
     <Content Include="Models\Bookstore.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Bookstore.edmx</DependentUpon>
@@ -290,6 +298,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Bookings\Create.cshtml" />
+    <Content Include="Views\Bookings\Delete.cshtml" />
+    <Content Include="Views\Bookings\Details.cshtml" />
+    <Content Include="Views\Bookings\Edit.cshtml" />
+    <Content Include="Views\Bookings\Index.cshtml" />
     <Content Include="Views\Books\Create.cshtml" />
     <Content Include="Views\Books\Delete.cshtml" />
     <Content Include="Views\Books\Details.cshtml" />

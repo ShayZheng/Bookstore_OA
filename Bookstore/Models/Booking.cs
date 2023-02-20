@@ -12,15 +12,12 @@ namespace Bookstore.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Book
+    public partial class Booking
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public bool IsReserved { get; set; }
+        public int Id { get; set; }
         public string AspNetUserId { get; set; }
-        public string ImageUrl { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
-        public virtual Booking Booking { get; set; }
+        public virtual Book Book { get; set; }
     }
 }

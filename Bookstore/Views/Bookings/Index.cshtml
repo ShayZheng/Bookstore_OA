@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Bookstore.Models.Book>
+﻿@model IEnumerable<Bookstore.Models.Booking>
 
 @{
     ViewBag.Title = "Index";
@@ -12,13 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsReserved)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
+            @Html.DisplayNameFor(model => model.Num)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AspNetUser.Email)
@@ -29,13 +23,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsReserved)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImageUrl)
+            @Html.DisplayFor(modelItem => item.Num)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AspNetUser.Email)
